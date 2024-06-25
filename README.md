@@ -16,7 +16,7 @@
     import asyncio
     import json
 
-    from rabbitmq-clients import RabbitProducer
+    from rabbitmq_clients import RabbitProducer
 
     if __name__ == "__main__":
         publisher = RabbitProducer(
@@ -37,8 +37,8 @@
 
     import aio_pika
 
-    from rabbitmq-clients import RabbitConsumer
-
+    from rabbitmq_clients import RabbitConsumer
+    from rabbitmq_clients.core.types import JSON
 
     async def show_result(result: JSON):
         print(result)
