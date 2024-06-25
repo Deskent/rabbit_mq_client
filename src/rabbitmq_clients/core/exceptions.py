@@ -1,0 +1,2 @@
+class RabbitConsumerJsonError(Exception):
+    pass

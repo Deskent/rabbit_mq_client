@@ -40,14 +40,8 @@
     from rabbitmq-clients import RabbitConsumer
 
 
-    async def on_message_callback(message: aio_pika.IncomingMessage):
-        encoded: str = message.body.decode()
-        try:
-            jsoned: dict = json.loads(encoded)
-            print(f"Received message: {jsoned}")
-        except json.decoder.JSONDecodeError as err:
-            print(err)
-            print(f"Received message: {encoded}")
+    async def show_result(result: JSON):
+        print(result)
 
 
     if __name__ == "__main__":
@@ -56,10 +50,8 @@
             login='test',
             password='test',
             queue_name='test_queue',
-            exchange_name='',
-            routing_key='',
         )
         try:
-            asyncio.run(consumer.consume(on_message_callback=on_message_callback))
+            asyncio.run(consumer.consume(on_message_callback=show_result))
         except KeyboardInterrupt:
             pass
