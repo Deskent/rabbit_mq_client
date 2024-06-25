@@ -7,7 +7,7 @@
 
 ### Installation
 
-    pip install rabbit_mq_client
+    pip install rabbitmq-clients
 
 ### Usage
 
@@ -16,7 +16,7 @@
     import asyncio
     import json
 
-    from rabbit_mq_client import RabbitProducer
+    from rabbitmq-clients import RabbitProducer
 
     if __name__ == "__main__":
         publisher = RabbitProducer(
@@ -37,7 +37,7 @@
 
     import aio_pika
 
-    from rabbit_mq_client import RabbitConsumer
+    from rabbitmq-clients import RabbitConsumer
 
 
     async def on_message_callback(message: aio_pika.IncomingMessage):

@@ -1,6 +1,6 @@
 import aio_pika
 
-from src.rabbit_mq_client.core.base_connect import BaseRabbitConnection
+from src.rabbitmq_clients.core.base_connect import BaseRabbitConnection
 
 
 class RabbitProducer(BaseRabbitConnection):

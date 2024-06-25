@@ -1,7 +1,7 @@
 import asyncio
 from typing import Callable
 
-from src.rabbit_mq_client.core.base_connect import BaseRabbitConnection
+from src.rabbitmq_clients.core.base_connect import BaseRabbitConnection
 
 
 class RabbitConsumer(BaseRabbitConnection):
