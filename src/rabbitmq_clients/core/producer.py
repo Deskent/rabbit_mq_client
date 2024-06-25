@@ -1,5 +1,6 @@
 import aio_pika
-from base_connect import BaseRabbitConnection
+
+from .base_connect import BaseRabbitConnection
 
 
 class RabbitProducer(BaseRabbitConnection):

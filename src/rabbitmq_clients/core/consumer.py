@@ -1,7 +1,7 @@
 import asyncio
 from typing import Callable
 
-from base_connect import BaseRabbitConnection
+from .base_connect import BaseRabbitConnection
 
 
 class RabbitConsumer(BaseRabbitConnection):
