@@ -33,12 +33,10 @@
 #### Consumer
 
     import asyncio
-    import json
-
-    import aio_pika
 
     from rabbitmq_clients import RabbitConsumer
     from rabbitmq_clients.core.types import JSON
+
 
     async def show_result(result: JSON):
         print(result)
