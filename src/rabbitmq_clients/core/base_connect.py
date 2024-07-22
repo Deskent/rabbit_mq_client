@@ -17,17 +17,17 @@ class BaseRabbitConnection:
 
         Attributes:
 
-            host: str,
+            host: str - RabbitMQ hostname
 
-            login: str,
+            login: str - RabbitMQ username
 
-            password: str,
+            password: str - RabbitMQ password
 
-            queue_name: str = '',
+            queue_name: str = '' - RabbitMQ default queue name
 
-            exchange_name: str = '',
+            exchange_name: str = '' - RabbitMQ default exchange name
 
-            routing_key: str = '',
+            routing_key: str = '' - RabbitMQ default routing key
 
         """
         self.exchange_name = exchange_name
@@ -54,7 +54,7 @@ class BaseRabbitConnection:
             channel: aio_pika.abc.AbstractChannel = await connection.channel()
             yield channel
 
-    def _get_queue_name(self, queue_name: str) -> str:
+    def _validate_queue_name(self, queue_name: str) -> str:
         queue_name: str = queue_name if queue_name else self.queue_name
         if queue_name:
             return queue_name
