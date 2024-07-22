@@ -98,7 +98,7 @@ class RabbitConsumer(BaseRabbitConnection):
         no_ack: bool = True,
     ):
         """
-        Deprecated and will be removed in version 1.2.0!
+        Deprecated and will be removed in version 0.2.0!
 
         Read messages from queue and send result to callback function.
 
@@ -112,7 +112,7 @@ class RabbitConsumer(BaseRabbitConnection):
 
         """
         warnings.warn(
-            'This method deprecated and will be removed in version 1.2.0. '
+            'This method deprecated and will be removed in version 0.2.0. '
             'Please use method "consume_all".',
             DeprecationWarning,
         )

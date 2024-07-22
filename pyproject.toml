@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rabbitmq-clients"
-version = "0.1.10"
+version = "0.1.11"
 description = "High level interfaces for work with RabbitMQ."
 authors = ["deskent <battenetciz@gmail.com>"]
 license = "MIT"
