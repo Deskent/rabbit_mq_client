@@ -55,10 +55,9 @@
             host='localhost',
             login='test',
             password='test',
-            queue_name='decoded_result',
         )
         first_queue = QueueDTO(
-            name='test_queue',
+            name='decoded_result',
             callback=show_decoded_result,
         )
         second_queue = QueueDTO(
