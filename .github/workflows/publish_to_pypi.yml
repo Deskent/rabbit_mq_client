@@ -33,7 +33,7 @@ jobs:
       if: failure()
       env:
         MESSAGE: "
-          Git pull: FAILED!!!
+          Deploy: FAILED!!!
           \n[${{ env.LABEL}}]: Branch ${{ env.BRANCH }}:
           \n${{ github.event.head_commit.message }}
           \nVersion: ${{ env.VERSION}}
@@ -48,7 +48,7 @@ jobs:
     - name: Send notification on Success
       env:
         MESSAGE: "
-          Git pull: OK
+          Deploy: OK
           \n[${{ env.LABEL}}]: Branch ${{ env.BRANCH }}:
           \n${{ github.event.head_commit.message }}
           \nVersion: ${{ env.VERSION}}
