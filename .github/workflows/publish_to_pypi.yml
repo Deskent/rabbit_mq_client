@@ -1,5 +1,8 @@
 name: Publish to PYPI
-
+env:
+  BRANCH: "main"
+  VERSION: ${{ github.sha }}
+  LABEL: "RabbitMQ clients"
 
 on:
   push:
