@@ -58,15 +58,14 @@ class RabbitConsumer(BaseRabbitConnection):
         """Start consuming from all queues."""
 
         logger.debug(f'Start consuming from {len(self._queues)} queues')
-        while True:
-            for queue_name, queue in self._queues.items():
-                await self._consume_from_queue(
-                    queue_name=queue.name,
-                    on_message_callback=queue.callback,
-                    auto_decode=queue.auto_decode,
-                    no_ack=queue.no_ack,
-                )
-            await asyncio.Future()
+        for queue_name, queue in self._queues.items():
+            await self._consume_from_queue(
+                queue_name=queue.name,
+                on_message_callback=queue.callback,
+                auto_decode=queue.auto_decode,
+                no_ack=queue.no_ack,
+            )
+        await asyncio.Future()
 
     async def _consume_from_queue(
         self,
