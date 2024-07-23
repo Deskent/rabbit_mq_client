@@ -66,6 +66,7 @@ class RabbitConsumer(BaseRabbitConnection):
                     auto_decode=queue.auto_decode,
                     no_ack=queue.no_ack,
                 )
+            await asyncio.Future()
 
     async def _consume_from_queue(
         self,
@@ -116,10 +117,33 @@ class RabbitConsumer(BaseRabbitConnection):
             'Please use method "consume_all".',
             DeprecationWarning,
         )
-        await self._consume_from_queue(
+        await self._consume_from_one_queue(
             queue_name,
             on_message_callback,
             auto_decode,
             no_ack,
         )
-        await asyncio.Future()
+
+    async def _consume_from_one_queue(
+        self,
+        queue_name: str,
+        on_message_callback: typing.Callable,
+        auto_decode: bool = True,
+        no_ack: bool = True,
+    ) -> None:
+        """Consume one queue."""
+
+        queue_name: str = self._validate_queue_name(queue_name)
+
+        callback_handler: CallbackHandler = CallbackHandler(
+            callback=on_message_callback,
+            auto_decode=auto_decode,
+        )
+
+        async for channel in self.get_async_channel():
+            queue: AbstractQueue = await channel.declare_queue(queue_name)
+            await queue.consume(
+                callback_handler.handle,
+                no_ack=no_ack,
+            )
+            await asyncio.Future()
