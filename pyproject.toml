@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rabbitmq-clients"
-version = "0.1.13"
+version = "0.1.14"
 description = "High level interfaces for work with RabbitMQ."
 authors = ["deskent <battenetciz@gmail.com>"]
 license = "MIT"
@@ -8,7 +8,7 @@ readme = "README.md"
 repository = 'https://github.com/Deskent/rabbit_mq_client'
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 aio-pika = "^9.4.1"
 
 
@@ -56,8 +56,8 @@ exclude = [
 ]
 line-length = 79
 
-# Assume Python 3.11
-target-version = "py311"
+# Assume Python 3.10
+target-version = "py310"
 
 
 [tool.ruff.format]
@@ -90,7 +90,7 @@ skip_glob = ["migrations"]
 
 [tool.black]
 line-length = 79
-target-version = ['py311']
+target-version = ['py310']
 include = '\.pyi?$'
 extend-exclude = '''
 /(

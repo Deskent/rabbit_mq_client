@@ -1,7 +1,7 @@
 ### Stack:
 
 - [x] <a href="https://www.python.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-plain.svg" alt="python" width="15" height="15"/>
-  Python 3.11+ <br/></a>
+  Python 3.10+ <br/></a>
 - [x] <a href="https://github.com/mosquito/aio-pika"><img src="https://raw.githubusercontent.com/mosquito/aio-pika/b61062893c4973dbbd5ac6a6afa55e4e74b28ae5/logo.svg" alt="aio-pika" width="15" height="15"/>
   aio-pika 9.4.1+ <br/></a>
 
