@@ -6,9 +6,10 @@ import aio_pika
 class BaseRabbitConnection:
     def __init__(
         self,
-        host: str,
         login: str,
         password: str,
+        host: str,
+        port: int = 5672,
         queue_name: str = "",
         exchange_name: str = "",
         routing_key: str = "",
@@ -18,6 +19,8 @@ class BaseRabbitConnection:
         Attributes:
 
             host: str - RabbitMQ hostname
+
+            port: int = 5672 - RabbitMQ port
 
             login: str - RabbitMQ username
 
@@ -34,6 +37,7 @@ class BaseRabbitConnection:
         self.queue_name = queue_name
         self.routing_key = routing_key
         self.host = host
+        self.port = port
         self.login = login
         self.password = password
 
@@ -42,6 +46,7 @@ class BaseRabbitConnection:
     ) -> AsyncGenerator[aio_pika.abc.AbstractConnection, None]:
         connection = await aio_pika.connect(
             host=self.host,
+            port=self.port,
             login=self.login,
             password=self.password,
         )

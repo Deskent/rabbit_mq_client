@@ -26,12 +26,14 @@
             host='localhost',
             login='test',
             password='test',
-            queue_name='test_queue',
-            exchange_name='',
-            routing_key='',
         )
         data = {"result": True}
-        asyncio.run(producer.publish(json.dumps(data)))
+        asyncio.run(
+            producer.publish(
+                json.dumps(data),
+                queue_name='test_queue_name',
+            )
+        )
 
 
 #### Consume multiply queues (recommended)
