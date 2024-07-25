@@ -10,8 +10,51 @@ on:
       - main
 
 jobs:
-  build-and-publish:
+  tests:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [
+          "3.11",
+        ]
+
+    services:
+      rabbitmq:
+        image: rabbitmq
+        env:
+          RABBITMQ_DEFAULT_USER: test
+          RABBITMQ_DEFAULT_PASS: test
+        ports:
+          - 5672:5672
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install poetry
+          poetry install --with dev
+
+      - name: Test with pytest
+        run: |
+          cd ${{ env.WORKDIR }}
+          export RABBIT_HOST=127.0.0.1
+          export RABBIT_USER=test
+          export RABBIT_PASSWORD=test
+
+          pytest ./tests
+
+  build-and-publish:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    needs: [ tests ]
     strategy:
       matrix:
         python-version: ["3.11"]
