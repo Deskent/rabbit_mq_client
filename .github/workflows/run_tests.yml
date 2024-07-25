@@ -1,0 +1,89 @@
+name: Publish to PYPI
+env:
+  BRANCH: "dev"
+  VERSION: ${{ github.sha }}
+  LABEL: "RabbitMQ clients"
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [
+          "3.11",
+        ]
+
+    services:
+      rabbitmq:
+        image: rabbitmq
+        env:
+          RABBITMQ_DEFAULT_USER: test
+          RABBITMQ_DEFAULT_PASS: test
+        ports:
+          - 5672:5672
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install poetry
+          poetry install --with dev
+
+      - name: Test with pytest
+        run: |
+          cd ${{ env.WORKDIR }}
+          export RABBIT_HOST=127.0.0.1
+          export RABBIT_USER=test
+          export RABBIT_PASSWORD=test
+
+          pytest ./tests
+
+      - uses: actions/checkout@v4
+      - name: Telegram notification on Failure
+        if: failure()
+        env:
+          MESSAGE: "
+            Tests: FAILED!!!
+            \n[${{ env.LABEL}}]: Branch ${{ env.BRANCH }}:
+            \n${{ github.event.head_commit.message }}
+            \nVersion: ${{ env.VERSION}}
+
+            \n\nRepository: ${{ github.repository }}
+            \nSee changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+            "
+        run: |
+          curl \
+          -X POST \
+          -H 'Content-Type: application/json' \
+          -d '{"chat_id": ${{ secrets.TELEGRAM_CHAT_ID }}, "text": "${{ env.MESSAGE }}", "disable_notification": false}' \
+          https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage
+
+      - name: Send notification on Success
+        env:
+          MESSAGE: "
+            Tests: OK
+            \n[${{ env.LABEL}}]: Branch ${{ env.BRANCH }}:
+            \n${{ github.event.head_commit.message }}
+            \nVersion: ${{ env.VERSION}}
+
+            \n\nRepository: ${{ github.repository }}
+            \nSee changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+            "
+        run: |
+          curl \
+          -X POST \
+          -H 'Content-Type: application/json' \
+          -d '{"chat_id": ${{ secrets.TELEGRAM_CHAT_ID }}, "text": "${{ env.MESSAGE }}", "disable_notification": true}' \
+          https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage

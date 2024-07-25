@@ -6,8 +6,7 @@ env:
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   tests:
@@ -68,15 +67,15 @@ jobs:
       run: python -m pip install -U pip poetry
     - name: Build
       run: python -m poetry build
-#    - name: Publish to Pypi
-#      run: python -m poetry publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
+    - name: Publish to Pypi
+      run: python -m poetry publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
 
     - uses: actions/checkout@v4
     - name: Telegram notification on Failure
       if: failure()
       env:
         MESSAGE: "
-          Deploy: FAILED!!!
+          Publish: FAILED!!!
           \n[${{ env.LABEL}}]: Branch ${{ env.BRANCH }}:
           \n${{ github.event.head_commit.message }}
           \nVersion: ${{ env.VERSION}}
@@ -94,7 +93,7 @@ jobs:
     - name: Send notification on Success
       env:
         MESSAGE: "
-          Deploy: OK
+          Publish: OK
           \n[${{ env.LABEL}}]: Branch ${{ env.BRANCH }}:
           \n${{ github.event.head_commit.message }}
           \nVersion: ${{ env.VERSION}}
