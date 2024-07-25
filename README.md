@@ -1,6 +1,5 @@
 [![PyPI version](https://badge.fury.io/py/rabbitmq-client.svg)](https://pypi.org/project/rabbitmq-client/)
 [![GitHub Build](https://github.com/Deskent/rabbit_mq_client/workflows/Tests/badge.svg)](https://github.com/Deskent/rabbit_mq_client/actions)
-[![Coverage Status](https://codecov.io/gh/Deskent/rabbit_mq_client/graph/badge.svg?token=WdLKlKHOAU)](https://codecov.io/gh/Deskent/rabbit_mq_client)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rabbitmq-clients.svg)](https://pypi.org/project/rabbitmq-clients/)
 
 
