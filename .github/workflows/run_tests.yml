@@ -1,4 +1,4 @@
-name: Publish to PYPI
+name: Tests
 env:
   BRANCH: "dev"
   VERSION: ${{ github.sha }}
