@@ -48,7 +48,7 @@ jobs:
           export RABBIT_USER=test
           export RABBIT_PASSWORD=test
 
-          pytest ./tests
+          python -m pytest ./tests
 
       - uses: actions/checkout@v4
       - name: Telegram notification on Failure
