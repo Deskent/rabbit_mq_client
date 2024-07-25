@@ -83,7 +83,7 @@ class RabbitConsumer(BaseRabbitConnection):
             auto_decode=auto_decode,
         )
 
-        async for channel in self.get_async_channel():
+        async with self.get_async_channel() as channel:
             queue: AbstractQueue = await channel.declare_queue(queue_name)
             await queue.consume(
                 callback_handler.handle,
@@ -130,7 +130,10 @@ class RabbitConsumer(BaseRabbitConnection):
         auto_decode: bool = True,
         no_ack: bool = True,
     ) -> None:
-        """Consume one queue."""
+        """Deprecated and will be removed in version 0.2.0!
+
+        Consume one queue.
+        """
 
         queue_name: str = self._validate_queue_name(queue_name)
 

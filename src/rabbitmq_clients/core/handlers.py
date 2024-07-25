@@ -1,7 +1,7 @@
 import json
 import typing
 
-import aio_pika
+from aio_pika.abc import AbstractIncomingMessage
 
 from rabbitmq_clients.core.exceptions import RabbitConsumerJsonError
 from rabbitmq_clients.core.types import JSON
@@ -25,12 +25,12 @@ class CallbackHandler:
 
     async def __decode_and_callback_result(
         self,
-        message: aio_pika.message.AbstractIncomingMessage,
+        message: AbstractIncomingMessage,
     ) -> None:
         encoded: str = message.body.decode()
         try:
             result: JSON = json.loads(encoded)
-            await self._callback(result)
+            return await self._callback(result)
         except json.decoder.JSONDecodeError as err:
             raise RabbitConsumerJsonError(err)
 
@@ -38,7 +38,7 @@ class CallbackHandler:
         self,
         *args: typing.Any,
         **kwargs: typing.Any,
-    ) -> None:
+    ) -> JSON | AbstractIncomingMessage:
         """Handle a message using the callback handler."""
 
         if self._auto_decode:

@@ -1,3 +1,4 @@
+import contextlib
 from typing import AsyncGenerator
 
 import aio_pika
@@ -41,6 +42,7 @@ class BaseRabbitConnection:
         self.login = login
         self.password = password
 
+    @contextlib.asynccontextmanager
     async def get_async_connection(
         self,
     ) -> AsyncGenerator[aio_pika.abc.AbstractConnection, None]:
@@ -52,10 +54,11 @@ class BaseRabbitConnection:
         )
         yield connection
 
+    @contextlib.asynccontextmanager
     async def get_async_channel(
         self,
     ) -> AsyncGenerator[aio_pika.abc.AbstractChannel, None]:
-        async for connection in self.get_async_connection():
+        async with self.get_async_connection() as connection:
             channel: aio_pika.abc.AbstractChannel = await connection.channel()
             yield channel
 

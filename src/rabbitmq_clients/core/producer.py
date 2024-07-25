@@ -12,7 +12,7 @@ class RabbitProducer(BaseRabbitConnection):
         """Publish message to RabbitMQ queue."""
 
         queue_name: str = self._validate_queue_name(queue_name)
-        async for channel in self.get_async_channel():
+        async with self.get_async_channel() as channel:
             queue = await channel.declare_queue(queue_name)
 
             exchange = channel.default_exchange
