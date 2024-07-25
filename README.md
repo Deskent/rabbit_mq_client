@@ -1,4 +1,4 @@
-[![PyPI version](https://badge.fury.io/py/rabbitmq-client.svg)](https://pypi.org/project/rabbitmq-client/)
+[![PyPI version](https://badge.fury.io/py/rabbitmq-clients.svg)](https://pypi.org/project/rabbitmq-clients/)
 [![GitHub Build](https://github.com/Deskent/rabbit_mq_client/workflows/Tests/badge.svg)](https://github.com/Deskent/rabbit_mq_client/actions)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rabbitmq-clients.svg)](https://pypi.org/project/rabbitmq-clients/)
 
