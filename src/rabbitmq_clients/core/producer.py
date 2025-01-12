@@ -1,9 +1,27 @@
+import contextlib
+from typing import AsyncGenerator
+
 import aio_pika
 
 from .base_connect import BaseRabbitConnection
 
 
 class RabbitProducer(BaseRabbitConnection):
+    @contextlib.asynccontextmanager
+    async def get_async_connection(
+        self,
+    ) -> AsyncGenerator[aio_pika.abc.AbstractConnection, None]:
+        """Close connection after publish."""
+
+        connection = await aio_pika.connect(
+            host=self.host,
+            port=self.port,
+            login=self.login,
+            password=self.password,
+        )
+        yield connection
+        await connection.close()
+
     async def publish(
         self,
         message: str,
