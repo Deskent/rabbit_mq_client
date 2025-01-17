@@ -14,6 +14,7 @@ class BaseRabbitConnection:
         queue_name: str = "",
         exchange_name: str = "",
         routing_key: str = "",
+        timeout: int | float | None = None,
     ):
         """Base connection class for RabbitMQ clients.
 
@@ -41,6 +42,7 @@ class BaseRabbitConnection:
         self.port = port
         self.login = login
         self.password = password
+        self.timeout = timeout
 
     @contextlib.asynccontextmanager
     async def get_async_connection(
@@ -51,6 +53,7 @@ class BaseRabbitConnection:
             port=self.port,
             login=self.login,
             password=self.password,
+            timeout=self.timeout,
         )
         yield connection
 
